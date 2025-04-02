@@ -21,9 +21,9 @@ TEST(UnorderedTable, can_find_in_unordered_table)
 	std::vector<std::pair<std::size_t, int>> a = { {9,24}, {2,-67}, {3,623} };
 	ASSERT_NO_THROW(UnorderedTable<int> b(a.size(), a));
 	UnorderedTable<int> b(a.size(), a);
-	EXPECT_EQ(std::make_pair(9, 24), b.find(9));
-	EXPECT_EQ(std::make_pair(2, -67), b.find(2));
-	EXPECT_EQ(std::make_pair(3, 623), b.find(3));
+	EXPECT_EQ(std::make_pair((std::size_t)9, 24), b.find(9));
+	EXPECT_EQ(std::make_pair((std::size_t)2, -67), b.find(2));
+	EXPECT_EQ(std::make_pair((std::size_t)3, 623), b.find(3));
 }
 TEST(UnorderedTable, can_create_unordered_table_table)
 {
@@ -48,10 +48,10 @@ TEST(UnorderedTable, can_insert_in_unordered_table_key_doesnt_exist)
 	ASSERT_NO_THROW(b.insert(6, 1553432));
 	b.insert(6, 1553432);
 	ASSERT_NO_THROW(b.find(6));
-	EXPECT_EQ(std::make_pair(6,1553432), b.find(6));
-	EXPECT_EQ(std::make_pair(9, 24), b.find(9));
-	EXPECT_EQ(std::make_pair(2, -67), b.find(2));
-	EXPECT_EQ(std::make_pair(3, 623), b.find(3));
+	EXPECT_EQ(std::make_pair((std::size_t)6,1553432), b.find(6));
+	EXPECT_EQ(std::make_pair((std::size_t)9, 24), b.find(9));
+	EXPECT_EQ(std::make_pair((std::size_t)2, -67), b.find(2));
+	EXPECT_EQ(std::make_pair((std::size_t)3, 623), b.find(3));
 }
 TEST(UnorderedTable, cant_insert_in_unordered_table_key_does_exist)
 {
@@ -66,8 +66,8 @@ TEST(UnorderedTable, can_erase_in_unordered_table_key_does_exist)
 	ASSERT_NO_THROW(UnorderedTable<int> b(a.size(), a));
 	UnorderedTable<int> b(a.size(), a);
 	ASSERT_NO_THROW(b.erase(2));
-	EXPECT_EQ(std::make_pair(9, 24), b.find(9));
-	EXPECT_EQ(std::make_pair(3, 623), b.find(3));
+	EXPECT_EQ(std::make_pair((std::size_t)9, 24), b.find(9));
+	EXPECT_EQ(std::make_pair((std::size_t)3, 623), b.find(3));
 	ASSERT_ANY_THROW(b.find(2));
 	EXPECT_EQ(2, b.getSize());
 }
@@ -96,9 +96,9 @@ TEST(OrderedTable, can_find_in_ordered_table)
 	OrderedTable<int> b(a.size(), a);
 	EXPECT_EQ(0, b.isEmpty());
 	EXPECT_EQ(3, b.getSize());
-	EXPECT_EQ(std::make_pair(1, 24), b.find(1));
-	EXPECT_EQ(std::make_pair(2, -67), b.find(2));
-	EXPECT_EQ(std::make_pair(3, 623), b.find(3));
+	EXPECT_EQ(std::make_pair((std::size_t)1, 24), b.find(1));
+	EXPECT_EQ(std::make_pair((std::size_t)2, -67), b.find(2));
+	EXPECT_EQ(std::make_pair((std::size_t)3, 623), b.find(3));
 }
 TEST(OrderedTable, can_create_ordered_table_table)
 {
@@ -123,10 +123,10 @@ TEST(OrderedTable, can_insert_in_ordered_table_key_doesnt_exist)
 	ASSERT_NO_THROW(b.insert(6, 1553432));
 	b.insert(6, 1553432);
 	ASSERT_NO_THROW(b.find(6));
-	EXPECT_EQ(std::make_pair(6, 1553432), b.find(6));
-	EXPECT_EQ(std::make_pair(1, 24), b.find(1));
-	EXPECT_EQ(std::make_pair(2, -67), b.find(2));
-	EXPECT_EQ(std::make_pair(3, 623), b.find(3));
+	EXPECT_EQ(std::make_pair((std::size_t)6, 1553432), b.find(6));
+	EXPECT_EQ(std::make_pair((std::size_t)1, 24), b.find(1));
+	EXPECT_EQ(std::make_pair((std::size_t)2, -67), b.find(2));
+	EXPECT_EQ(std::make_pair((std::size_t)3, 623), b.find(3));
 }
 TEST(OrderedTable, cant_insert_in_ordered_table_key_does_exist)
 {
@@ -141,8 +141,8 @@ TEST(OrderedTable, can_erase_in_ordered_table_key_does_exist)
 	ASSERT_NO_THROW(OrderedTable<int> b(a.size(), a));
 	OrderedTable<int> b(a.size(), a);
 	ASSERT_NO_THROW(b.erase(2));
-	EXPECT_EQ(std::make_pair(1, 24), b.find(1));
-	EXPECT_EQ(std::make_pair(3, 623), b.find(3));
+	EXPECT_EQ(std::make_pair((std::size_t)1, 24), b.find(1));
+	EXPECT_EQ(std::make_pair((std::size_t)3, 623), b.find(3));
 	ASSERT_ANY_THROW(b.find(2));
 	EXPECT_EQ(2, b.getSize());
 }
@@ -219,8 +219,3 @@ TEST(HashTableOpenMix, can_insert_in_deleted_cell_in_hash_table_open_mix)
 	EXPECT_EQ(1,q.erase(14867));
 	EXPECT_EQ(1, q.insert(20000, 1));
 }
-
-//TEST(HashTableChains, can_create_hash_table_chains)
-//{
-//	ASSERT_NO_THROW(HashTableChains<int> q);
-//}

@@ -134,7 +134,7 @@ public:
 template<typename T, typename CellType = std::pair<int, std::pair<T, bool>>> class HashTableOpenMix : public TableByArray<T, CellType>
 {
 private:
-	const std::size_t a = rand() * (p - 2) + 1, b = rand() * (p - 1), p = 14867;
+	const std::size_t p = 14867, a = rand() * (p - 2) + 1, b = rand() * (p - 1);
 public:
 	HashTableOpenMix()
 	{
@@ -220,89 +220,5 @@ public:
 		}
 	}
 };
-
-/*template<typename T, typename CellType = std::list<std::pair<size_t, T>>> class HashTableChains : public TableByArray<T, CellType>
-{
-private:
-	const int a = rand() * (p - 2) + 1, b = rand() * (p - 1), p = 14867;
-public:
-	HashTableChains()
-	{
-		size = 0;
-		data.resize(p + 1024);
-	}
-	HashTableChains(std::size_t _size, const std::vector<CellType>& _data)
-	{
-		size = _size;
-		data = _data;
-	};
-	HashTableChains(const HashTableChains<T, CellType>& t)
-	{
-		size = t.size;
-		data = t.data;
-	};
-	std::size_t HashFunction(std::size_t key) noexcept
-	{
-		return ((a * key + b) % p) % (p + 1024);
-	}
-	bool insert(std::size_t _key, const T& _data)
-	{
-		std::size_t index = this->HashFunction(_key);
-		if (data[index].size() == 0)
-		{
-			data[index].push_back(std::make_pair(_key, _data)); return 1;
-		}
-		else{
-			data[index].push_back(std::make_pair(_key, _data)); return 1;
-		}
-	}
-	bool erase(std::size_t _key)
-	{
-		std::size_t index = this->HashFunction(_key);
-		if (data[index].size() == 0) return 0;
-		else {
-			if (data[index].first.first == _key)
-			{
-				data[index].pop_front(); return 1;
-			}
-			else {
-				auto it = data[index].begin();
-				while (it != NULL)
-				{
-					if (_key == it.first.first)
-					{
-						data[index].erase(it);
-						return 1;
-					}
-					it++;
-				}
-				return 0;
-			}
-		}
-	}
-	CellType find(std::size_t _key)
-	{
-		std::size_t index = this->HashFunction(_key);
-		if (data[index].size() == 0) throw std::runtime_error("No cell found!");
-		else {
-			if (data[index].front().first == _key)
-			{
-				return data[index].front();
-			}
-			else {
-				auto it = data[index].begin();
-				while (it != data[index].end())
-				{
-					if (_key == (*it).first)
-					{
-						return *it;
-					}
-					it++;
-				}
-				throw std::runtime_error("No cell found!");
-			}
-		}
-	}
-};*/
 
 #endif 
