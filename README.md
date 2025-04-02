@@ -1,1 +1,1 @@
-# tables
+# translator
