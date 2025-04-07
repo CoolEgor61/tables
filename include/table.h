@@ -51,7 +51,7 @@ public:
 			if ((this->data)[i].first == _key)
 			{
 				isExist = 1;
-				i = (this->size);
+				break;
 			}
 		}
 		if (!isExist)
@@ -71,7 +71,7 @@ public:
 			{
 				isExist = 1;
 				k = i;
-				i = (this->size);
+				break;
 			}
 		}
 		if (isExist)
@@ -140,7 +140,11 @@ public:
 	{
 		(this->size) = 0;
 		(this->data).resize(p + 1024);
-		for (int i=0;i<p+1024;i++) (this->data)[i].first = -1;
+		for (int i = 0; i < p + 1024; i++)
+		{
+			(this->data)[i].first = -1;
+			(this->data)[i].second.second = 0;
+		}
 	}
 	HashTableOpenMix(std::size_t _size, const std::vector<CellType>& _data)
 	{
@@ -159,9 +163,9 @@ public:
 	bool insert(std::size_t _key, const T& _data)
 	{
 		std::size_t index = this->HashFunction(_key);
-		if ((this->data)[index].first == _key && (this->data)[index].second.first == _data) return 0;
+		if ((this->data)[index].first == _key) return 0;
 		else if ((this->data)[index].first == -1) {
-			(this->data)[index].first = _key; (this->data)[index].second.first = _data; (this->size)++;
+			(this->data)[index].first = _key; (this->data)[index].second.first = _data; (this->data)[index].second.second = 0; (this->size)++;
 			return 1;
 		}
 		else {
@@ -188,6 +192,7 @@ public:
 			(this->data)[index].second.second = 1; (this->size)--;
 			return 1;
 		}
+		else if ((this->data)[index].first == _key && (this->data)[index].second.second == 1) return 0;
 		else {
 			index += 1;
 			std::size_t k = 1;

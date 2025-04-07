@@ -195,13 +195,13 @@ TEST(HashTableOpenMix, can_avoid_collisions_in_hash_table_open_mix)
 {
 	ASSERT_NO_THROW(HashTableOpenMix<int> q);
 	HashTableOpenMix<int> q;
-	for (int i = 0; i < 14867 + 1024; i++) ASSERT_NO_THROW(q.insert(i, i + 1));
+	for (int i = 0; i < 14867 + 1024; i++) EXPECT_EQ(1, q.insert(i, i + 1));
 }
 TEST(HashTableOpenMix, cant_insert_in_full_table_in_hash_table_open_mix)
 {
 	ASSERT_NO_THROW(HashTableOpenMix<int> q);
 	HashTableOpenMix<int> q;
-	for (int i = 0; i < 14867 + 1024; i++) ASSERT_NO_THROW(q.insert(i, i + 1));
+	for (int i = 0; i < 14867 + 1024; i++) EXPECT_EQ(1, q.insert(i, i + 1));
 	EXPECT_EQ(0, q.insert(20000, 1));
 }
 TEST(HashTableOpenMix, can_erase_in_hash_table_open_mix)
@@ -215,7 +215,7 @@ TEST(HashTableOpenMix, can_insert_in_deleted_cell_in_hash_table_open_mix)
 {
 	ASSERT_NO_THROW(HashTableOpenMix<int> q);
 	HashTableOpenMix<int> q;
-	for (int i = 0; i < 14867 + 1024; i++) ASSERT_NO_THROW(q.insert(i, i + 1));
+	for (int i = 0; i < 14867 + 1024; i++) EXPECT_EQ(1,q.insert(i, i + 1));
 	EXPECT_EQ(1,q.erase(14867));
 	EXPECT_EQ(1, q.insert(20000, 1));
 }
